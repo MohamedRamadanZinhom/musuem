@@ -1,0 +1,20 @@
+body {
+    background-image: url('../Image/statistics.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden; 
+   
+   
+}
+
+.card {
+    background-color: transparent; /* Set the background color to transparent */
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    background-color: rgba(255, 255, 255, 0.8); /* Adjust the alpha value for transparency */
+    border-radius: 10px; /* Add border-radius for a rounded look */
+}

@@ -1,0 +1,234 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+   
+}
+
+body {
+    background-image: url('../Image/statistics.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden; 
+}
+
+.navbar {
+    background-color: transparent !important;
+}
+
+.navbar-dark .navbar-toggler-icon {
+    background-color: #fff;
+}
+
+.navbar-dark .navbar-toggler:focus,
+.navbar-dark .navbar-toggler:active {
+    outline: none;
+}
+
+
+.navbar-nav .nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    opacity: 0.9; /* Adjust the opacity as needed */
+}
+
+/* Add this CSS to your existing styles */
+
+/* Bottom Section */
+.bottom-section {
+    background-color: rgba(0, 0, 0, 0.562);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.bottom-section .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bottom-section .boxes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    margin-top: 20px;
+}
+
+.bottom-section .box {
+    border: 1px solid gold;
+    padding: 20px;
+    width: 180px;
+    height: 180px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 1.5em;
+}
+
+.bottom-section .box p {
+    font-size: 1em;
+    line-height: 1.2em;
+}
+
+.bottom-section .text p {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Add this CSS to your existing styles */
+
+/* Footer */
+footer.bottom-section {
+    background-color: rgba(0, 0, 0, 0.562);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer.bottom-section .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+footer.bottom-section .boxes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    margin-top: 20px;
+}
+
+footer.bottom-section .box {
+    border: 1px solid gold;
+    padding: 20px;
+    width: 180px;
+    height: 180px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 1.5em;
+}
+
+footer.bottom-section .box p {
+    font-size: 1em;
+    line-height: 1.2em;
+}
+
+footer.bottom-section .text p {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+/* Add this CSS to your existing styles */
+
+/* Footer Animation */
+@keyframes slideInFromBottom {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+footer.bottom-section {
+    background-color: rgba(0, 0, 0, 0.562);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    animation: slideInFromBottom 1s ease-in-out;
+}
+
+footer.bottom-section .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+footer.bottom-section .boxes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    margin-top: 20px;
+}
+
+footer.bottom-section .box {
+    border: 1px solid gold;
+    padding: 20px;
+    width: 180px;
+    height: 180px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 1.5em;
+}
+
+footer.bottom-section .box p {
+    font-size: 1em;
+    line-height: 1.2em;
+}
+
+footer.bottom-section .text p {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+/* Add this CSS to your existing styles */
+
+/* Description */
+.description {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 40px;
+    text-align: center;
+}
+
+.description h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.description p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+/* Add this CSS to your existing styles */
+
+/* Description Animation */
+@keyframes slideInFromTop {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.description {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 40px;
+    text-align: center;
+    animation: slideInFromTop 1s ease-in-out;
+}
+
+.description h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.description p {
+    font-size: 18px;
+    line-height: 1
+}

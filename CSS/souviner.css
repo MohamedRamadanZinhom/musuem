@@ -1,0 +1,74 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: rgba(250, 242, 231, 0.788);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: auto; /* Enable scrolling within the container */
+    height: 80vh; /* Adjust the height as needed */
+    width: 80vw; /* Adjust the width as needed */
+    padding-top: 15%;
+}
+
+.boxes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+     /* Enable vertical scrollbar if content exceeds container height */
+    max-height: 100vh; /* Set a max-height for the container */
+}
+
+.box {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px solid yellow;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+}
+
+.box img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    width: 150px; /* Fixed width for images */
+    height: 150px; /* Fixed height for images */
+}
+
+.box h4 {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.box p {
+    margin-top: 10px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: yellow;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: white;
+    color: black;
+}
