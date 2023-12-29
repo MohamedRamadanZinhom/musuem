@@ -3,8 +3,8 @@ include 'Views/layout.php';
 include('Database/Model/Connection.php');
 include('Database/Model/Product.php');
 
-$product=new Product();
-$products= $product->getAllProducts();
+//$product=new Product();
+//$products= $product->getAllProducts();
 
 echo '
 

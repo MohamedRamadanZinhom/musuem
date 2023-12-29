@@ -1,69 +1,64 @@
 <?php
 
-include('../connection.php');
+class Content
+{
+    private $pdo;
 
-class Content {
-    private $conn;
-    
-
-    public function __construct() {
-        include('Connection.php');
-        $this->conn = new mysqli($host, $username, $password, $database);
-
-        if ($this->conn->connect_error) {
-            die("Connection failed: " . $this->conn->connect_error);
-        }
+    public function __construct(PDO $pdo)
+    {
+        $this->pdo = $pdo;
     }
 
-    public function createContent($name, $content, $image) {
-        $sql = "INSERT INTO content (name, content, image) VALUES ('$name', '$content', '$image')";
-        $result = $this->conn->query($sql);
+    // Create new content
+    public function createContent($title, $description, $image, $userId)
+    {
+        $sql = "INSERT INTO content (title, description, image, user_id)
+                VALUES (?, ?, ?, ?)";
 
-        return $result ? true : false;
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$title, $description, $image, $userId]);
+
+        return 'Content created successfully';
     }
 
-    public function getContent($id) {
-        $sql = "SELECT * FROM content WHERE id = $id";
-        $result = $this->conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            return $result->fetch_assoc();
-        } else {
-            return null;
-        }
-    }
-
-    public function updateContent($id, $name, $content, $image) {
-        $sql = "UPDATE content SET name = '$name', content = '$content', image = '$image' WHERE id = $id";
-        $result = $this->conn->query($sql);
-
-        return $result ? true : false;
-    }
-
-    public function deleteContent($id) {
-        $sql = "DELETE FROM content WHERE id = $id";
-        $result = $this->conn->query($sql);
-
-        return $result ? true : false;
-    }
-
-    public function getAllContents() {
+    // Get all content
+    public function getAllContent()
+    {
         $sql = "SELECT * FROM content";
-        $result = $this->conn->query($sql);
+        $stmt = $this->pdo->query($sql);
 
-        $contents = [];
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $contents[] = $row;
-            }
-        }
-
-        return $contents;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function __destruct() {
-        $this->conn->close();
+    // Get content by ID
+    public function getContentById($contentId)
+    {
+        $sql = "SELECT * FROM content WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$contentId]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Update content
+    public function updateContent($contentId, $title, $description, $image)
+    {
+        $sql = "UPDATE content SET title = ?, description = ?, image = ? WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$title, $description, $image, $contentId]);
+
+        return 'Content updated successfully';
+    }
+
+    // Delete content
+    public function deleteContent($contentId)
+    {
+        $sql = "DELETE FROM content WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$contentId]);
+
+        return 'Content deleted successfully';
     }
 }
 
+?>

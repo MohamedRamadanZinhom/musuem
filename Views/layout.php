@@ -2,6 +2,7 @@
 
 include('Database/Model/Connection.php');
 include('Database/Model/Admin.php'); 
+session_start();
 $isAdmin=false;
 if (isset($_SESSION['admin_name'])) {
    $isAdmin=true;
