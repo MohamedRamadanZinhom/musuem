@@ -1,6 +1,9 @@
 <?php
 
-include 'Views/layout.php';
+include 'Views/public/layout.php';
+
+
+User();
 
 echo '
 <link rel="stylesheet" href="CSS/souvinerform.css">

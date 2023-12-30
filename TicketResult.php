@@ -1,10 +1,10 @@
 <?php
 
-include 'Views/layout.php';
+include 'Views/public/layout.php';
 include('Database/Model/Connection.php');
-include('Database/Model/Product.php'); 
+include('Database/Model/Souvenir.php'); 
 include('Database/Model/Ticket.php'); 
-include('Database/Model/Visitor.php'); 
+include('Database/Model/User.php'); 
 
 $Message ="Sorry ! there Are a problem" ;
 
@@ -19,8 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $country = isset($_POST['country']) ? $_POST['country'] : '';
     $itemQuantity = isset($_POST['itemQuantity']) ? $_POST['itemQuantity'] : '';
     $type = isset($_POST['visitorType']) ? $_POST['visitorType'] : '';
-    $visitor = new Visitor();
-    $visitor->createVisitor($first_name, $last_name, $country,$email, $mobile, $address, $type);
+    $visitor = new User($pdo);
+    $visitor->($first_name, $last_name, $country,$email, $mobile, $address, $type);
     $visitor_id=$visitor->getLastInsertedId();
     $dateTimeObject = new DateTime();
     $dateTimeString = $dateTimeObject->format("Y-m-d H:i:s");

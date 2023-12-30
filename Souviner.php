@@ -1,25 +1,30 @@
 <?php
-include 'Views/layout.php';
-include('Database/Model/Connection.php');
-include('Database/Model/Product.php');
+include 'Views/public/layout.php';
+include('Database/Connection.php');
+include('Database/Model/Souvenir.php');
 
-//$product=new Product();
+
+$souviner=new Souvenir($pdo);
+$souviners=$souviner->getAllSouvenirs();
 //$products= $product->getAllProducts();
+
+ User();
 
 echo '
 
-<link rel="stylesheet" href="CSS/souviner.css">
+<link rel="stylesheet" href="resources/CSS/souviner.css">
+
 
 <div class="container">
     <div class="boxes">';
     
-foreach ($products as $item) {
+foreach ($souviners as $item) {
     echo '
         <div class="box">
-            <img src="Image/localImage/' . $item['image'] . '" alt="image">
-            <h4>Anubis</h4>
+            <img src="resources/images/local/' . $item['image'] . '" alt="image">
+            <h4>' . $item['name'] . '</h4>
             <h4>$' . $item['price'] . '</h4>
-            <p>' . $item['name'] . '</p>
+            <p>' . $item['description'] . '</p>
             <a class="btn btn-warning" href="SouvinerForm.php?id=' . $item['id'] . '&price=' . $item['price'] . '">Buy Now</a>
         </div>';
 }

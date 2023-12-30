@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
-        <img src="Image/logo.png" width="30" height="30" class="d-inline-block align-top" alt="Your Logo">
+    <a class="navbar-brand" href="index.php">
+        <img src="resources/images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="Your Logo">
         Egyption Musuem
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@
                     <a class="dropdown-item" href="#">Admin Dashboard</a>
                     <a class="dropdown-item" href="#">Settings</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Logout</a>
+                    <a class="dropdown-item" href="Logout.php">Logout</a>
                 </div>
             </li>
             <?php } ?>
@@ -43,7 +43,7 @@
             <span class="nav-link"><?php $_SESSION['admin_name']?></span>
         </li>
         <li class="nav-item">
-        <a id="logout-link" class="nav-link" href="#">Logout</a>
+        <a id="logout-link" class="nav-link" href="Logout.php">Logout</a>
         </li>
         <?php }else { ?>
         <li class="nav-item">

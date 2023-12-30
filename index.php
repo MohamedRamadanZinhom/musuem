@@ -1,5 +1,5 @@
 <?php
-include 'Views/layout.php';
+include './Views/public/layout.php';
 
 // Your page-specific content goes here
 echo '

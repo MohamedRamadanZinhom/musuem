@@ -1,6 +1,6 @@
 <?php
 
-include 'Views/layout.php';
+include 'Views/public/layout.php';
 include('Database/Model/Connection.php');
 include('Database/Model/Product.php'); 
 include('Database/Model/Order.php'); 

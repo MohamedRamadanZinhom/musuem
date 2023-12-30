@@ -1,9 +1,9 @@
 <?php 
 
-    $host = "localhost";
-    $username = "root";
-    $password ="";
-    $database = "cart_db";
-
-    $conn= new mysqli($host,$username,$password,$database);
+$host = 'localhost';
+$dbname = 'EgyptionMusuem';
+$username = 'root';
+$password = '';
+// Create a PDO instance
+$pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 ?>

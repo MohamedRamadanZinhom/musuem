@@ -1,81 +1,35 @@
 <?php
 
+include 'Database/Model/Connection.php';
+
 class UserController
 {
-    private $user;
+    private $pdo;
 
-    public function __construct(User $user)
+    public function __construct()
     {
-        $this->user = $user;
+        // Initialize the $pdo property with the global PDO object created in the included file
+        global $pdo;
+        $this->pdo = $pdo;
     }
 
-    public function registerUser($data)
+    public function profile()
     {
-        // Validate and sanitize input data
-        // ...
-
-        // Check if the username is available
-        if (!$this->user->isUsernameAvailable($data['username'])) {
-            // Handle username not available
-            return 'Username is not available';
-        }
-
-        // Create a new user
-        $userId = $this->user->createUser($data['first_name'], $data['last_name'], $data['username'], $data['email'], $data['password']);
-
-        // Assign a default role to the user (e.g., 'visitor')
-        $this->user->assignUserRole($userId, 'visitor');
-
-        // Redirect to the login page or perform other actions
-        // ...
-
-        return 'Registration successful';
+        // Your profile logic here
     }
 
-    public function loginUser($username, $password)
+    public function buySouvenir($userId, $souvenirId, $quantity)
     {
-        // Authenticate the user
-        $user = $this->user->authenticateUser($username, $password);
-
-        if ($user) {
-            // Check if the user is blocked
-            if ($this->user->isUserBlocked($user['id'])) {
-                // Handle blocked user
-                return 'User is blocked';
-            }
-
-            // Log in the user (e.g., set session variables)
-            // ...
-
-            // Redirect to the home page or perform other actions
-            // ...
-
-            return 'Login successful';
-        } else {
-            // Handle authentication failure
-            return 'Invalid username or password';
-        }
+        $souvenir = new Souvenir($this->pdo);
+        $souvenir->buySouvenir($userId, $souvenirId, $quantity);
     }
 
-    public function viewUserProfile($userId)
+    public function Souvenir()
     {
-        // Check if the user is deleted
-        if ($this->user->isUserDeleted($userId)) {
-            // Handle deleted user
-            return 'User not found';
-        }
-
-        // Get user details from the model
-        $user = $this->user->getUserById($userId);
-
-        // Display user profile view
-        // ...
-
-        return $user; // This could be used to pass user data to the view
+        header("Location: index.php");
+        
     }
-
-    // Other methods for updating, deleting, blocking, unblocking users, etc.
-    // ...
 }
 
 ?>
+

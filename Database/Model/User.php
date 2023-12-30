@@ -14,13 +14,38 @@ class User
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO User (first_name, last_name, username, email, password, blocked, deleted)
+        $sql = "INSERT INTO User (first_name, last_name, username, email, password, isblocked, deleted)
                 VALUES (?, ?, ?, ?, ?, 0, 0)";
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$firstName, $lastName, $username, $email, $hashedPassword]);
 
         return $this->pdo->lastInsertId();
+    }
+
+    public function Register($firstName, $lastName, $username, $email, $password,$role)
+    {
+        if(!$this->isUsernameAvailable($username) && ! $this->isUserEmailAvailable($email))
+        {
+            $userId=$this->createUser($firstName, $lastName, $username, $email, $password);
+            $this->assignUserRole($userId, $role);
+            session_start();
+            $_SESSION['user_id'] = $userId; // Store user ID in the session
+            $_SESSION["authenticationMessage"]="";
+            $_SESSION["ISauthenticated"] ="true";
+            $_SESSION["Role"] =$role;
+            $_SESSION['admin_name']=$username;
+            header("Location: index.php"); //
+            exit();
+        }
+        else
+        {
+            $_SESSION["authenticationMessage"] ="your username or email is Exist";
+            $_SESSION["ISauthenticated"] ="true";
+            $_SESSION['admin_name']="";
+            header("Location: Register.php");
+            exit();
+        }
     }
 
     // Read user by ID
@@ -123,16 +148,29 @@ class User
         return $stmt->fetchColumn() === 0;
     }
 
+    // Check if a username is available (not taken)
+    public function isUserEmailAvailable($email)
+    {
+        $sql = "SELECT COUNT(*) FROM User WHERE email = ? AND deleted = 0";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$email]);
+
+        return $stmt->fetchColumn() === 0;
+    }
+
     // Authenticate user by username and password
     public function authenticateUser($username, $password)
     {
-        $sql = "SELECT * FROM User WHERE username = ? AND deleted = 0 AND blocked = 0";
+    
+        $sql = "SELECT * FROM User WHERE username = ? AND deleted = 0 AND isblocked = 0";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$username]);
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
+     
         if ($user && password_verify($password, $user['password'])) {
+            $role=$this->getUserRoles($user['id']);
+            $_SESSION["Role"] =$role[0];
             return $user;
         }
 
