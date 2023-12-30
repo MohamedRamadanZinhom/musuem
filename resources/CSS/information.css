@@ -1,0 +1,32 @@
+.card {
+    width: 100%;
+    margin: 0 auto;
+    height: 300px;
+    background-color: rgba(255, 255, 255, 0.7); 
+}
+
+.card-img {
+    max-height: 100%;
+    object-fit: cover;
+    height: auto;
+    width: 200px;
+}
+
+.card-body{
+    width: 100%;
+    margin: 0 auto;
+    height: 300px;
+    background-color: rgba(255, 255, 255, 0.7); 
+}
+
+  
+.container {
+    height: 70vh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: auto; /* Enable scrolling within the container */
+    width: 90vw; /* Adjust the width as needed */
+    padding-top: 1%;
+}

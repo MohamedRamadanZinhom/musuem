@@ -21,6 +21,9 @@
                     <a class="dropdown-item" href="Souviner.php ">Buy Souvenir</a>
                 </div>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="information.php">Information</a>
+            </li>
             <?php if($isAdmin){ ?>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
