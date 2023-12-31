@@ -1,40 +1,39 @@
 <?php
 
 include 'Views/public/layout.php';
-include('Database/Model/Connection.php');
-include('Database/Model/Product.php'); 
-include('Database/Model/Order.php'); 
-include('Database/Model/Visitor.php'); 
+include('Database/Connection.php');
+include('Database/Model/Souvenir.php');
 
 $Message ="Sorry ! there Are a problem" ;
-
+    
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Process form data here
-    // Example: Get data from form
-    $first_name = isset($_POST['firstName']) ? $_POST['firstName'] : '';
-    $last_name = isset($_POST['lastName']) ? $_POST['lastName'] : '';
-    $email = isset($_POST['email']) ? $_POST['email'] : '';
-    $mobile = isset($_POST['mobile']) ? $_POST['mobile'] : '';
-    $address = isset($_POST['address']) ? $_POST['address'] : '';
-    $country = isset($_POST['country']) ? $_POST['country'] : '';
-    $itemQuantity = isset($_POST['itemQuantity']) ? $_POST['itemQuantity'] : '';
-    $type = isset($_POST['visitorType']) ? $_POST['visitorType'] : '';
-    $product_id= isset($_POST['id']) ? $_POST['id'] : '';
-    $product_price= isset($_POST['price']) ? $_POST['price'] : '';
-    $visitor = new Visitor();
-    $visitor->createVisitor($first_name, $last_name, $country,$email, $mobile, $address, $type);
-    $visitor_id=$visitor->getLastInsertedId();
+   
+    if(isset($_POST["post-identifire"]))
+    {
+        switch($_POST["post-identifire"])
+        {
+            case "buysouviner":
+                $id =(isset($_POST['id']) ? $_POST['id'] : '') ;
+                $price =(isset($_POST['price']) ? $_POST['price'] : '') ;
+                $souviner= new Souvenir($pdo);
+                $item =$souviner->getSouvenirById($id);
+                $user_id=$_SESSION['user_id'];
+                $itemQuantity = isset($_POST['itemQuantity']) ? $_POST['itemQuantity'] : '';    
+                $souviner->buySouvenir($user_id,$id,$itemQuantity);
+                $Message ="Process Complete Successfuly" ;
+                break;
+            case "bookticket":
 
-    $cost =floatval($itemQuantity)*floatval($product_price);
-    $order =new Order();
-    $order->createOrder($visitor_id, $product_id, $itemQuantity,$cost) ;
+                break;
+            default : 
+                $Message ="Sorry ! there Are a problem" ;
+                break;
+        }
+    }
 
-    $Message ="Process Complete Successfuly" ;
+
 } 
-$isAdmin=false;
-if (isset($_SESSION['admin_name'])) {
-   $isAdmin=true;
-}
+
 
 echo '
 
