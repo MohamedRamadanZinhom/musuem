@@ -8,7 +8,7 @@ html, body {
 }
 
 body {
-    background-image: url('../Image/statistics.jpg');
+    background-image: url('../images/statistics.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -231,4 +231,13 @@ footer.bottom-section .text p {
 .description p {
     font-size: 18px;
     line-height: 1
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }

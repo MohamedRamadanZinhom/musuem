@@ -18,8 +18,8 @@ html {
     left: 50%;
     transform: translate(-50%, -50%);
     overflow: auto; /* Enable scrolling within the container */
-    height: 80vh; /* Adjust the height as needed */
-    width: 80vw; /* Adjust the width as needed */
+    height: 90vh; /* Adjust the height as needed */
+    width: 90vw; /* Adjust the width as needed */
     padding-top: 15%;
 }
 
