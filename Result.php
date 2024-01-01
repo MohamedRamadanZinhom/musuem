@@ -3,6 +3,7 @@
 include 'Views/public/layout.php';
 include('Database/Connection.php');
 include('Database/Model/Souvenir.php');
+include('Database/Model/Ticket.php');
 
 $Message ="Sorry ! there Are a problem" ;
     
@@ -23,7 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $Message ="Process Complete Successfuly" ;
                 break;
             case "bookticket":
-
+                $user_id=$_SESSION['user_id'];
+                $itemQuantity = isset($_POST['itemQuantity']) ? $_POST['itemQuantity'] : '';    
+                $ticketTypeId = isset($_POST['visitorType']) ? $_POST['visitorType'] : '';    
+                $ticket = new Ticket($pdo);
+                $ticket->createTicket($user_id, $ticketTypeId, $itemQuantity);
+                $Message ="Process Complete Successfuly" ;
                 break;
             default : 
                 $Message ="Sorry ! there Are a problem" ;
