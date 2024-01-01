@@ -83,7 +83,7 @@ input, select {
 .container {
    
     overflow: auto; /* Enable scrolling within the container */
-    height: 90vh; /* Adjust the height as needed */
-    width: 90vw; /* Adjust the width as needed */
+    height: 80vh; /* Adjust the height as needed */
+    width: 80vw; /* Adjust the width as needed */
     
 }

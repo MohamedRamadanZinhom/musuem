@@ -1,79 +1,90 @@
 <?php
 
-class Order
-{
-    private $pdo;
 
-    public function __construct(PDO $pdo)
-    {
-        $this->pdo = $pdo;
-    }
 
-    // Get all orders for a user
-    public function getUserOrders($userId)
-    {
-        $sql = "SELECT * FROM orders WHERE user_id = ?";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$userId]);
+class Order {
+    private $conn;
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    public function __construct() {
+        include('Connection.php');
+        $this->conn = new mysqli($host, $username, $password, $database);
 
-    // Get an order by ID
-    public function getOrderById($orderId)
-    {
-        $sql = "SELECT * FROM orders WHERE id = ?";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$orderId]);
-
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    // Cancel an order
-    public function cancelOrder($orderId)
-    {
-        $order = $this->getOrderById($orderId);
-
-        if (!$order) {
-            return 'Invalid order';
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
         }
-
-        // Assuming you have a souvenirs table to update available items
-        $sql = "UPDATE souvenir SET available_items = available_items + ? WHERE id = ?";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$order['quantity'], $order['souvenir_id']]);
-
-        // Assuming you have a refund process if needed
-
-        // Update the order status to canceled
-        $this->updateOrderStatus($orderId, 'canceled');
-
-        return 'Order canceled successfully';
     }
 
-    // Update order status
-    private function updateOrderStatus($orderId, $status)
-    {
-        $sql = "UPDATE orders SET status = ? WHERE id = ?";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$status, $orderId]);
+    public function createOrder($id_visitor, $id_image, $number_ticket,$cost) {
+        $sql = "INSERT INTO orders (id_visitor, id_image, number_ticket,cost) VALUES (?, ?,?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("iiid", $id_visitor, $id_image, $number_ticket,$cost);
+
+        $result = $stmt->execute();
+
+        $stmt->close();
+
+        return $result;
     }
 
-     // Get all details of an order by ID with user and souvenir information
-     public function getOrderDetailsById($orderId)
-     {
-         $sql = "SELECT orders.*, user.first_name AS user_first_name, user.last_name AS user_last_name, 
-                 souvenir.name AS souvenir_name, souvenir.price AS souvenir_price, souvenir.image AS souvenir_image
-                 FROM orders
-                 INNER JOIN user ON orders.user_id = user.id
-                 INNER JOIN souvenir ON orders.souvenir_id = souvenir.id
-                 WHERE orders.id = ?";
- 
-         $stmt = $this->pdo->prepare($sql);
-         $stmt->execute([$orderId]);
- 
-         return $stmt->fetch(PDO::FETCH_ASSOC);
-     }
+    public function getOrder($id) {
+        $sql = "SELECT * FROM orders WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+
+        $result = $stmt->get_result()->fetch_assoc();
+
+        $stmt->close();
+
+        return $result;
+    }
+
+    public function updateOrder($id, $id_visitor, $id_image, $number_ticket) {
+        $sql = "UPDATE orders SET id_visitor = ?, id_image = ?, number_ticket = ? WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("iiii", $id_visitor, $id_image, $number_ticket, $id);
+
+        $result = $stmt->execute();
+
+        $stmt->close();
+
+        return $result;
+    }
+
+    public function deleteOrder($id) {
+        $sql = "DELETE FROM orders WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+
+        $result = $stmt->execute();
+
+        $stmt->close();
+
+        return $result;
+    }
+
+    public function getOrderDetails($order_id) {
+        $sql = "SELECT orders.id AS order_id, orders.order_date, orders.quantity, 
+                       visitor.first_name AS visitor_first_name, visitor.last_name AS visitor_last_name,
+                       product.name AS product_name, product.price AS product_price
+                FROM orders
+                INNER JOIN visitor ON orders.visitor_id = visitor.id
+                INNER JOIN product ON orders.product_id = product.id
+                WHERE orders.id = ?";
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $order_id);
+        $stmt->execute();
+        
+        $result = $stmt->get_result()->fetch_assoc();
+    
+        $stmt->close();
+    
+        return $result;
+    }
+    
+
+    public function closeConnection() {
+        $this->conn->close();
+    }
 }
-
-?>
